@@ -1,0 +1,39 @@
+# Dependencies
+node_modules
+
+# pnpm
+.pnpm-store
+
+# Turborepo
+.turbo
+
+# Next.js
+.next
+out
+
+# Build outputs
+dist
+build
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode
+
+# IntelliJ
+.idea
+
+# Coverage
+coverage
+
+# TypeScript
+*.tsbuildinfo
