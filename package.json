@@ -1,7 +1,7 @@
 {
 	"name": "ai-workspace",
 	"version": "1.0.0",
-	"description": "",
+	"description": "AI Agent Playground — Next.js (Vercel) + Cloudflare Worker monorepo",
 	"main": "index.js",
 	"scripts": {
 		"dev": "turbo dev",
@@ -9,7 +9,10 @@
 		"lint": "turbo lint",
 		"typecheck": "turbo typecheck",
 		"format": "biome format . --write",
-		"check": "biome check ."
+		"check": "biome check .",
+		"deploy": "turbo deploy",
+		"deploy:web": "turbo deploy --filter=web",
+		"deploy:api": "turbo deploy --filter=api"
 	},
 	"keywords": [],
 	"author": "",

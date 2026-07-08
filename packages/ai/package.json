@@ -1,0 +1,23 @@
+{
+	"name": "@workspace/ai",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		".": "./src/index.ts",
+		"./providers": "./src/providers.ts",
+		"./agents": "./src/agents.ts",
+		"./tools": "./src/tools.ts"
+	},
+	"dependencies": {
+		"ai": "npm:ai@5.0.210",
+		"@ai-sdk/openai": "npm:@ai-sdk/openai@2.0.110",
+		"@ai-sdk/anthropic": "npm:@ai-sdk/anthropic@2.0.85",
+		"@ai-sdk/openai-compatible": "npm:@ai-sdk/openai-compatible@1.0.42",
+		"zod": "^3.25.76"
+	},
+	"devDependencies": {
+		"@workspace/typescript-config": "workspace:*",
+		"typescript": "^5"
+	}
+}

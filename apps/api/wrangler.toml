@@ -1,0 +1,20 @@
+name = "ai-agent-playground-api"
+main = "src/index.ts"
+compatibility_date = "2025-07-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Workers AI / AI Gateway account (optional, used by the cloudflare provider)
+# [vars]
+# CLOUDFLARE_ACCOUNT_ID = ""
+
+# KV namespace used by agent tools (notes / memory). Create with:
+#   npx wrangler kv namespace create AGENT_KV
+[[kv_namespaces]]
+binding = "AGENT_KV"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+[vars]
+DEFAULT_MODEL = "openai:gpt-4o-mini"
+
+# Secrets (set via `wrangler secret put`, never commit):
+#   AUTH_SECRET, OPENAI_API_KEY, ANTHROPIC_API_KEY, CLOUDFLARE_API_KEY

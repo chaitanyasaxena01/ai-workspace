@@ -13,7 +13,12 @@
 		"next": "16.2.10",
 		"react": "19.2.4",
 		"react-dom": "19.2.4",
+		"next-auth": "5.0.0-beta.31",
+		"ai": "npm:ai@5.0.210",
+		"@ai-sdk/react": "npm:@ai-sdk/react@2.0.212",
 		"@workspace/ui": "workspace:*",
+		"@workspace/auth": "workspace:*",
+		"@workspace/ai": "workspace:*",
 		"@workspace/typescript-config": "workspace:*"
 	},
 	"devDependencies": {

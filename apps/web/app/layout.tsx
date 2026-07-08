@@ -1,20 +1,19 @@
-export default function RootLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
+
+import { Providers } from "./providers";
+import "./globals.css";
+
+export const metadata: Metadata = {
+	title: "AI Agent Playground",
+	description: "Pick an agent, chat, and watch it think → call tools → respond.",
+};
+
+export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html lang="en">
-			<body
-				style={{
-					padding: "30px",
-					border: "6px solid red",
-					margin: 0,
-				}}
-			>
-				<h1>🔴 Root Layout</h1>
-
-				{children}
+			<body>
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	);

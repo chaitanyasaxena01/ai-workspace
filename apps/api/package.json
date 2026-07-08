@@ -1,0 +1,32 @@
+{
+	"name": "api",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"main": "src/index.ts",
+	"scripts": {
+		"dev": "wrangler dev",
+		"deploy": "wrangler deploy",
+		"build": "wrangler types",
+		"typecheck": "tsc --noEmit",
+		"lint": "biome check src"
+	},
+	"dependencies": {
+		"hono": "^4.12.28",
+		"ai": "npm:ai@5.0.210",
+		"@ai-sdk/openai": "npm:@ai-sdk/openai@2.0.110",
+		"@ai-sdk/anthropic": "npm:@ai-sdk/anthropic@2.0.85",
+		"@ai-sdk/openai-compatible": "npm:@ai-sdk/openai-compatible@1.0.42",
+		"zod": "^3.25.76",
+		"@workspace/auth": "workspace:*",
+		"@workspace/ai": "workspace:*",
+		"@workspace/env": "workspace:*"
+	},
+	"devDependencies": {
+		"@workspace/typescript-config": "workspace:*",
+		"@cloudflare/workers-types": "^5.20260708.1",
+		"typescript": "^5",
+		"wrangler": "^4.108.0",
+		"@biomejs/biome": "^2.5.2"
+	}
+}
