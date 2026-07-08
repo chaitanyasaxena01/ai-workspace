@@ -24,6 +24,7 @@
 	},
 	"dependencies": {
 		"@ai-sdk/gateway": "^4.0.13",
-		"@cloudflare/workers-types": "^5.20260708.1"
+		"@cloudflare/workers-types": "^5.20260708.1",
+		"workers-ai-provider": "3.3.1"
 	}
 }
