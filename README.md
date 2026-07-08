@@ -1,8 +1,8 @@
 # AI Agent Playground
 
-An **AI Agent Playground** where you pick an agent (system prompt + tools), chat with it, and watch it **think → call tools → respond** in real time. The agent runtime runs on a **Cloudflare Worker** while the UI is deployed on **Vercel**, giving you an edge-first, multi-provider playground built on the **Vercel AI SDK**.
+An **AI Agent Playground** where you pick an agent (system prompt + tools), chat with it, and watch it **think → call tools → respond** in real time. The agent runtime runs on a **Cloudflare Worker** while the UI is deployed on **Vercel**, giving you an edge-first, multi-provider playground built on the **Vercel AI SDK** and **cloudflare ai gateway** also.
 
-Authentication is handled by **Auth.js (NextAuth v5)** — every request to the agent runtime is gated by a verifiable JWT.
+Authentication is handled by **Auth.js** — every request to the agent runtime is gated by a verifiable JWT.
 
 ---
 
