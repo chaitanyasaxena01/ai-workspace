@@ -1,7 +1,9 @@
 import { openai } from "@ai-sdk/openai";
 import { anthropic } from "@ai-sdk/anthropic";
 import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
+import { createWorkersAI } from "workers-ai-provider";
 import type { LanguageModel } from "ai";
+import type { Ai } from "@cloudflare/workers-types";
 
 export type AiEnv = {
 	AUTH_SECRET?: string;
@@ -9,12 +11,14 @@ export type AiEnv = {
 	ANTHROPIC_API_KEY?: string;
 	CLOUDFLARE_API_KEY?: string;
 	CLOUDFLARE_ACCOUNT_ID?: string;
+	AI?: Ai;
 };
 
 /**
  * Resolve a model spec like `"openai:gpt-4o-mini"` or
  * `"anthropic:claude-3-5-sonnet-latest"` to a concrete AI SDK model.
- * Supports openai, anthropic, and Cloudflare Workers AI (OpenAI-compatible).
+ * Supports openai, anthropic, Cloudflare Workers AI (via AI binding,
+ * and Cloudflare Workers AI OpenAI-compatible API.
  */
 export function resolveModel(spec: string, env: AiEnv): LanguageModel {
 	const [provider, ...rest] = spec.split(":");
@@ -32,6 +36,18 @@ export function resolveModel(spec: string, env: AiEnv): LanguageModel {
 				throw new Error("ANTHROPIC_API_KEY is not configured");
 			}
 			return anthropic(modelId || "claude-3-5-sonnet-latest");
+		}
+		case "cloudflare-workers-ai": {
+			if (!env.AI) {
+				throw new Error("AI binding is not configured");
+			}
+			const workersAI = createWorkersAI({
+				binding: env.AI,
+				gateway: env.CLOUDFLARE_ACCOUNT_ID
+					? { id: env.CLOUDFLARE_ACCOUNT_ID }
+					: undefined,
+			});
+			return workersAI(modelId || "@cf/meta/llama-3.1-8b-instruct");
 		}
 		case "cloudflare": {
 			if (!env.CLOUDFLARE_API_KEY || !env.CLOUDFLARE_ACCOUNT_ID) {

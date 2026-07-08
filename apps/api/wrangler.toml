@@ -3,18 +3,18 @@ main = "src/index.ts"
 compatibility_date = "2025-07-01"
 compatibility_flags = ["nodejs_compat"]
 
-# Workers AI / AI Gateway account (optional, used by the cloudflare provider)
-# [vars]
-# CLOUDFLARE_ACCOUNT_ID = ""
+# Workers AI / AI Gateway binding
+[ai]
+binding = "AI"
 
 # KV namespace used by agent tools (notes / memory). Create with:
 #   npx wrangler kv namespace create AGENT_KV
 [[kv_namespaces]]
 binding = "AGENT_KV"
-id = "REPLACE_WITH_KV_NAMESPACE_ID"
+id = "073a31910df14cb3a6f693b265c470b8"
 
 [vars]
-DEFAULT_MODEL = "openai:gpt-4o-mini"
+DEFAULT_MODEL = "@cf/moonshotai/kimi-k2.7-code"
 
 # Secrets (set via `wrangler secret put`, never commit):
 #   AUTH_SECRET, OPENAI_API_KEY, ANTHROPIC_API_KEY, CLOUDFLARE_API_KEY

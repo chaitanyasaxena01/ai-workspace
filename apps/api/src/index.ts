@@ -1,4 +1,4 @@
-import type { KVNamespace } from "@cloudflare/workers-types";
+import type { Ai, KVNamespace } from "@cloudflare/workers-types";
 import { type AiEnv, runAgent } from "@workspace/ai";
 import { verifyToken } from "@workspace/auth/session";
 import type { UIMessage } from "ai";
@@ -12,6 +12,7 @@ type Bindings = {
 	CLOUDFLARE_ACCOUNT_ID?: string;
 	DEFAULT_MODEL?: string;
 	AGENT_KV: KVNamespace;
+	AI: Ai;
 };
 
 const app = new Hono<{ Bindings: Bindings }>();
@@ -45,6 +46,7 @@ app.post("/v1/agent", async (c) => {
 		ANTHROPIC_API_KEY: c.env.ANTHROPIC_API_KEY,
 		CLOUDFLARE_API_KEY: c.env.CLOUDFLARE_API_KEY,
 		CLOUDFLARE_ACCOUNT_ID: c.env.CLOUDFLARE_ACCOUNT_ID,
+		AI: c.env.AI,
 	};
 
 	const result = runAgent({

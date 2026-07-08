@@ -10,10 +10,11 @@
 		"./tools": "./src/tools.ts"
 	},
 	"dependencies": {
-		"ai": "npm:ai@5.0.210",
-		"@ai-sdk/openai": "npm:@ai-sdk/openai@2.0.110",
 		"@ai-sdk/anthropic": "npm:@ai-sdk/anthropic@2.0.85",
+		"@ai-sdk/gateway": "^4.0.13",
+		"@ai-sdk/openai": "npm:@ai-sdk/openai@2.0.110",
 		"@ai-sdk/openai-compatible": "npm:@ai-sdk/openai-compatible@1.0.42",
+		"ai": "npm:ai@5.0.210",
 		"zod": "^3.25.76"
 	},
 	"devDependencies": {
