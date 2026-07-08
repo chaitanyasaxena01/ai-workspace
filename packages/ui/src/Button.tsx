@@ -1,18 +1,11 @@
-type ButtonProps = {
-  children: React.ReactNode;
-};
+import type { ButtonHTMLAttributes } from "react";
 
-export function Button({ children }: ButtonProps) {
-  return (
-    <button
-      style={{
-        padding: "12px 20px",
-        borderRadius: 8,
-        border: "none",
-        cursor: "pointer",
-      }}
-    >
-      {children}
-    </button>
-  );
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
+
+export function Button({ children, ...props }: ButtonProps) {
+	return (
+		<button type="button" {...props}>
+			{children}
+		</button>
+	);
 }

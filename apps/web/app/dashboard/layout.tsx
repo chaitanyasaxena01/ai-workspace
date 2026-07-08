@@ -1,18 +1,18 @@
 export default function DashboardLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  return (
-    <div
-      style={{
-        border: "6px solid blue",
-        padding: "20px",
-      }}
-    >
-      <h2>🔵 Dashboard Layout</h2>
+	return (
+		<div
+			style={{
+				border: "6px solid blue",
+				padding: "20px",
+			}}
+		>
+			<h2>🔵 Dashboard Layout</h2>
 
-      {children}
-    </div>
-  );
+			{children}
+		</div>
+	);
 }
