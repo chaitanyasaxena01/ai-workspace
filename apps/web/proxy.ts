@@ -1,9 +1,12 @@
 import { auth } from "@workspace/auth";
 
 const proxy = auth((req) => {
-	if (!req.auth && req.nextUrl.pathname.startsWith("/playground")) {
+	const path = req.nextUrl.pathname;
+	const protectedPath =
+		path.startsWith("/playground") || path.startsWith("/dashboard");
+	if (!req.auth && protectedPath) {
 		const url = new URL("/login", req.nextUrl.origin);
-		url.searchParams.set("callbackUrl", req.nextUrl.pathname);
+		url.searchParams.set("callbackUrl", path);
 		return Response.redirect(url, 307);
 	}
 });
@@ -11,5 +14,5 @@ const proxy = auth((req) => {
 export default proxy;
 
 export const config = {
-	matcher: ["/playground/:path*"],
+	matcher: ["/playground/:path*", "/dashboard/:path*"],
 };

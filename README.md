@@ -1,8 +1,17 @@
 # AI Agent Playground
 
-An **AI Agent Playground** where you pick an agent (system prompt + tools), chat with it, and watch it **think → call tools → respond** in real time. The agent runtime runs on a **Cloudflare Worker** while the UI is deployed on **Vercel**, giving you an edge-first, multi-provider playground built on the **Vercel AI SDK** and **cloudflare ai gateway** also.
+An **AI Agent Playground** where you pick an agent (system prompt + tools), chat with it, and watch it **think → call tools → respond** in real time. The agent runtime runs on a **Cloudflare Worker** while the UI is deployed on **Vercel**, giving you an edge-first, multi-provider playground built on the **Vercel AI SDK**.
 
-Authentication is handled by **Auth.js** — every request to the agent runtime is gated by a verifiable JWT.
+Authentication is handled by **Auth.js (NextAuth v5)** — every request to the agent runtime is gated by a verifiable JWT.
+
+---
+
+## Resume highlights
+
+- Edge agent runtime on **Cloudflare Workers** with **Auth.js JWT** verification before any model call  
+- Streaming multi-step **tool use** (calculator, web fetch, notes/KV) via the **Vercel AI SDK**  
+- Multi-provider routing: **Workers AI**, OpenAI, Anthropic via a single model-spec string  
+- **Turborepo monorepo** with shared source packages (`auth`, `ai`, `ui`, `env`) for web + Worker  
 
 ---
 
@@ -14,6 +23,7 @@ Authentication is handled by **Auth.js** — every request to the agent runtime 
 - **Multi-provider** — OpenAI, Anthropic, and Cloudflare Workers AI via a single model-spec string (`"openai:gpt-4o-mini"`).
 - **Secure by default** — Auth.js issues a JWT; the Cloudflare Worker verifies it at the edge before running any agent.
 - **Monorepo** — shared, source-exported packages (`auth`, `ai`, `ui`, `env`) consumed by both runtimes with no build step.
+- **Product UI** — dark edge-console playground with agent rail, model catalog, and expandable tool traces.
 
 ---
 
