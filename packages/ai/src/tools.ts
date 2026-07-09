@@ -8,17 +8,81 @@ export type NoteStore = {
 	list(opts?: { prefix?: string }): Promise<{ keys: { name: string }[] }>;
 };
 
+/**
+ * Safe recursive-descent math parser.
+ * Supports: +, -, *, /, parentheses, unary minus, decimals.
+ * Does NOT use eval/Function — safe for Cloudflare Workers.
+ */
 function safeEval(expr: string): number {
 	const cleaned = expr.replace(/[^0-9+\-*/().\s]/g, "");
 	if (cleaned !== expr.trim()) {
 		throw new Error("Only numbers and + - * / ( ) are allowed");
 	}
-	// eslint-disable-next-line no-new-func
-	const value = Function(`"use strict"; return (${cleaned});`)() as number;
-	if (typeof value !== "number" || !Number.isFinite(value)) {
-		throw new Error("Invalid expression");
+
+	let pos = 0;
+	const src = cleaned.replace(/\s+/g, "");
+
+	function parseExpr(): number {
+		let left = parseTerm();
+		while (pos < src.length && (src[pos] === "+" || src[pos] === "-")) {
+			const op = src[pos]!;
+			pos++;
+			const right = parseTerm();
+			left = op === "+" ? left + right : left - right;
+		}
+		return left;
 	}
-	return value;
+
+	function parseTerm(): number {
+		let left = parseFactor();
+		while (pos < src.length && (src[pos] === "*" || src[pos] === "/")) {
+			const op = src[pos]!;
+			pos++;
+			const right = parseFactor();
+			if (op === "/") {
+				if (right === 0) throw new Error("Division by zero");
+				left = left / right;
+			} else {
+				left = left * right;
+			}
+		}
+		return left;
+	}
+
+	function parseFactor(): number {
+		// Unary minus
+		if (src[pos] === "-") {
+			pos++;
+			return -parseFactor();
+		}
+		// Unary plus
+		if (src[pos] === "+") {
+			pos++;
+			return parseFactor();
+		}
+		// Parenthesised sub-expression
+		if (src[pos] === "(") {
+			pos++; // skip '('
+			const val = parseExpr();
+			if (src[pos] !== ")") throw new Error("Missing closing parenthesis");
+			pos++; // skip ')'
+			return val;
+		}
+		// Number literal (integer or decimal)
+		const start = pos;
+		while (pos < src.length && (src[pos]! >= "0" && src[pos]! <= "9" || src[pos] === ".")) {
+			pos++;
+		}
+		if (pos === start) throw new Error("Unexpected token");
+		const value = Number(src.slice(start, pos));
+		if (!Number.isFinite(value)) throw new Error("Invalid number");
+		return value;
+	}
+
+	const result = parseExpr();
+	if (pos !== src.length) throw new Error("Unexpected characters after expression");
+	if (!Number.isFinite(result)) throw new Error("Invalid expression");
+	return result;
 }
 
 const memory = new Map<string, string>();

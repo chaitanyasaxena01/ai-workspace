@@ -14,7 +14,8 @@ binding = "AGENT_KV"
 id = "073a31910df14cb3a6f693b265c470b8"
 
 [vars]
-DEFAULT_MODEL = "@cf/moonshotai/kimi-k2.7-code"
+# Use Workers AI binding (cloudflare-workers-ai:…). Prefer models that still exist in the catalog.
+DEFAULT_MODEL = "cloudflare-workers-ai:@cf/moonshotai/kimi-k2.7-code"
 
 # Secrets (set via `wrangler secret put`, never commit):
 #   AUTH_SECRET, OPENAI_API_KEY, ANTHROPIC_API_KEY, CLOUDFLARE_API_KEY

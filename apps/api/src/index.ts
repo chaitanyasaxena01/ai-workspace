@@ -20,8 +20,8 @@ const app = new Hono<{ Bindings: Bindings }>();
 app.get("/health", (c) => c.json({ ok: true }));
 
 app.post("/v1/agent", async (c) => {
-	const auth = c.req.header("authorization") ?? "";
-	const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
+	const authHeader = c.req.header("authorization") ?? "";
+	const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";
 
 	const session = token ? await verifyToken(token, c.env.AUTH_SECRET) : null;
 

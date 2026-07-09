@@ -4,14 +4,14 @@ type PanelProps = HTMLAttributes<HTMLDivElement> & {
 	children: ReactNode;
 };
 
-export function Panel({ children, ...props }: PanelProps) {
+export function Panel({ children, style, ...props }: PanelProps) {
 	return (
 		<div
 			style={{
 				border: "1px solid #333",
 				borderRadius: 12,
 				padding: 16,
-				...props.style,
+				...style,
 			}}
 			{...props}
 		>

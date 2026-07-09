@@ -8,6 +8,16 @@ import { AGENT_LIST, type AgentId } from "@workspace/ai";
 import { Button } from "@workspace/ui";
 
 const MODELS = [
+	// Workers AI via binding (recommended — uses env.AI, no OpenAI/Anthropic keys needed)
+	"cloudflare-workers-ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+	"cloudflare-workers-ai:@cf/moonshotai/kimi-k2.7-code",
+	"cloudflare-workers-ai:@cf/meta/llama-4-scout-17b-16e-instruct",
+	"cloudflare-workers-ai:@cf/zai-org/glm-4.7-flash",
+	// Workers AI via OpenAI-compatible REST API
+	"cloudflare:@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+	"cloudflare:@cf/moonshotai/kimi-k2.7-code",
+	"cloudflare:@cf/zai-org/glm-4.7-flash",
+	// Need OPENAI_API_KEY / ANTHROPIC_API_KEY in apps/api/.dev.vars
 	"openai:gpt-4o-mini",
 	"openai:gpt-4o",
 	"anthropic:claude-3-5-sonnet-latest",
